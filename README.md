@@ -4,3 +4,5 @@
 # Michael Okeefe
 # Yechen Zheng
 # Hengrui Pei
+# Damsara Jayarathne
+# Solomon Starkes
