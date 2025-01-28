@@ -1,0 +1,86 @@
+# This script creates a ROS 2 node to control the turtlesim simulator. 
+publishes velocity commands to /turtle1/cmd_vel for movement and uses
+the /turtle1/set_pen service to set the pen color to black (RGB: 0,0,0) 
+with a line width of 5. The turtle moves forward a set distance using 
+move_forward(distance, speed) and rotates 90 degrees (1.57 radians) using 
+rotate(angle, speed) repeating this sequence four times in draw_square() 
+to complete a square. The main() function initializes the ROS 2 node, 
+starts the drawing process, and shuts down afterward. To run the script,
+first launch turtlesim with ros2 run turtlesim turtlesim_node, then 
+execute the script using python3 draw_black_square.py.
+
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist
+from turtlesim.srv import SetPen
+import time
+
+class DrawBlackSquareNode(Node):
+    def __init__(self):
+        super().__init__('draw_black_square')
+        self.publisher = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
+        self.client = self.create_client(SetPen, '/turtle1/set_pen')
+
+        while not self.client.wait_for_service(timeout_sec=1.0):
+            self.get_logger().warn("Waiting for /turtle1/set_pen service...")
+
+        self.set_black_pen()  # Set pen color to black
+        time.sleep(1)  # Ensure the color is applied before starting to draw
+
+        self.draw_square()
+
+    def set_black_pen(self):
+        """ Call the /turtle1/set_pen service to set the pen color to black """
+        request = SetPen.Request()
+        request.r = 0  # Red component
+        request.g = 0  # Green component
+        request.b = 0  # Blue component
+        request.width = 5  # Line width
+        request.off = 0  # 0 means the pen is enabled
+
+        future = self.client.call_async(request)
+        rclpy.spin_until_future_complete(self, future)
+        self.get_logger().info("Set pen color to black!")
+
+    def move_forward(self, distance, speed=1.0):
+        """ Move the turtle forward by a certain distance """
+        cmd = Twist()
+        cmd.linear.x = speed
+        start_time = time.time()
+        while time.time() - start_time < distance / speed:
+            self.publisher.publish(cmd)
+            time.sleep(0.1)
+
+        cmd.linear.x = 0.0
+        self.publisher.publish(cmd)
+
+    def rotate(self, angle, speed=1.0):
+        """ Rotate the turtle by a certain angle (in radians) """
+        cmd = Twist()
+        cmd.angular.z = speed
+        start_time = time.time()
+        while time.time() - start_time < angle / speed:
+            self.publisher.publish(cmd)
+            time.sleep(0.1)
+
+        cmd.angular.z = 0.0
+        self.publisher.publish(cmd)
+
+    def draw_square(self):
+        """ Draw a black square """
+        for _ in range(4):
+            self.move_forward(2.0)  # Move forward
+            time.sleep(0.5)
+            self.rotate(1.57)  # Rotate 90 degrees (1.57 radians)
+            time.sleep(0.5)
+
+        self.get_logger().info('Black square drawing complete!')
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = DrawBlackSquareNode()
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
