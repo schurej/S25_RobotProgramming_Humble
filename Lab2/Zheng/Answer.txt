@@ -1,0 +1,83 @@
+Question: What are the executable nodes within the turtlesim package?
+turtlesim draw_square
+turtlesim mimic
+turtlesim turtle_teleop_key
+turtlesim turtlesim_node
+
+Question: What is the name and starting pose of this simulated turtle?
+ [turtle1] at x=[5.544445], y=[5.544445]
+ 
+Question: What happens in the turtlesim window if you try to drive
+the turtle out of the window?
+ [WARN] [1738187745.669563717] [turtlesim]: Oh no! I hit the wall! (Clamping from [x=4.248265, y=-0.031429])
+
+Question: How many nodes are running?
+1
+
+Question: Based on this information, for moving and tracking the
+simulated turtle, what information do you think this node sends and
+receives? What are the associated topic names?
+
+Information Sent (Output)
+/turtle1/pose (turtlesim/msg/Pose): Publishes the turtle's current position (x, y) and orientation (theta).
+
+/turtle1/color_sensor (turtlesim/msg/Color): Publishes the RGB color under the turtle.
+
+Information Received (Input)
+
+/turtle1/cmd_vel (geometry_msgs/msg/Twist): Receives velocity commands to move the turtle (linear x for forward/backward, angular z for turning).
+
+Question: Do the arrows match the publisher/subscriber information
+from the previous steps?
+yes
+
+Question: What is the difference between this output and that of ros2
+topic list -t?
+
+ros2 topic list only shows topic names. ros2 topic list -t shows topic names and their associated message types.
+
+Question: What does this command tell us?
+The topic /turtle1/cmd_vel is of type geometry_msgs/msg/Twist.No nodes are currently publishing to this topic. One node is subscribed to this topic, likely the /turtlesim node, which uses the Twist messages to control the turtle's movement.
+
+1. change the pen color to black with 
+ros2 service call /turtle1/set_pen turtlesim/srv/SetPen "{'r': 0, 'g': 0, 'b': 0, 'width': 3, 'off': false}"
+2. Move forward with 
+ros2 topic pub -1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
+3.Turn 90 degree with 
+ros2 topic pub -1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.57}}"
+4. repeat the process three times.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
