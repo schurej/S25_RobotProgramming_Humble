@@ -1,0 +1,7 @@
+My method for drawing the black square with the turtlesim package was to use the teleport service call to move the turtle around to specific locations, with the path marking creating a square on the background. First, I used the set_pen serivce call to reset the path marking to black with the command seen below.
+ros2 service call /turtle1/set_pen turtlesim/srv/SetPen "{'r': 0.0, 'g': 0.0, 'b': 0.0, 'width': 2.0, 'off': 0.0}"
+
+Next, I used the absolute_teleport service call four times to teleport the turtle to the four corners which created the sides of the square on the background with the command seen below (x and y values changed for each call)
+ros2 service call /turtle1/teleport_absolute turtlesim/srv/TeleportAbsolute "{'x': 2.0, 'y': 8.0}"
+
+This created the black square as requested in the task.
