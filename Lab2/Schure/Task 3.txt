@@ -1,0 +1,4 @@
+After using "ros2 service list -t" and "ros2 interface show turtlesim/srv/SetPen" to get information about the /turtle1/set_pen service, I was able to call the service by:
+ros2 service call /turtle1/set_pen turtlesim/srv/SetPen "{r: 0, g: 0, b: 0, 'width': 3, 'off': 0}"
+I then found that the best way to move the turtle in a square was to use only linear commands with no rotation. For example:
+ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.0, y: 4.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
