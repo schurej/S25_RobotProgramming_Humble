@@ -1,0 +1,65 @@
+# Ignore all directories named roscourse_ws anywhere in the repo
+**/roscourse_ws/
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore log files
+*.log
+
+# Ignore environment files
+.env
+*.env
+
+# Ignore node_modules folder (for JavaScript projects)
+node_modules/
+
+# Ignore all .DS_Store files (macOS)
+.DS_Store
+
+# ROS 2 Build System: colcon
+build/
+install/
+log/
+.colcon/
+
+# Ignore workspace logs
+*.cache
+*.db
+ros2_ws/.rosinstall
+
+# Ignore launch logs and generated files
+.launch/
+*.launch.pyc
+
+# Ignore package dependencies
+rosdep/
+.rosinstall
+ros2_ws/deps/
+
+# Ignore ROS Bag files
+*.db3
+*.mcap
+
+# Ignore RViz and Gazebo config and logs
+rviz/
+gazebo/
+
+# Ignore CMake and ROS 2 compilation artifacts
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# Ignore VSCode and JetBrains IDE files
+.vscode/
+.idea/
+*.iml
+
+# Ignore temporary and backup files
+*.swp
+*~
