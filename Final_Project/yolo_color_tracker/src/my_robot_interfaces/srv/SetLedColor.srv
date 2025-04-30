@@ -1,0 +1,6 @@
+uint8 r          # red channel [0-255]
+uint8 g          # green channel [0-255]
+uint8 b          # blue channel [0-255]
+---
+bool success     # true if color was set
+string message   # feedback message

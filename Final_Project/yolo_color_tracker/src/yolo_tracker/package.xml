@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>yolo_tracker</name>
+  <version>1.0.0</version>
+
+  <!-- exactly one description tag: -->
+  <description>YOLO detection + 3D back-projection + LED control</description>
+
+  <maintainer email="augusc@rpi.edu">Colby August</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- build?tool dependencies -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <!-- runtime dependencies -->
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>tf2_ros</depend>
+  <depend>launch_xml</depend>
+  <!-- newly added for your SetLedColor service: -->
+  <depend>my_robot_interfaces</depend>
+
+  <!-- extra exec dependencies -->
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
+
